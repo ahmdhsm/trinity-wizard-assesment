@@ -2,29 +2,29 @@ package com.ahmdhsm.trinitywizardcontact.viewmodels
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.ahmdhsm.trinitywizardcontact.core.ReadJSONFromAssets
+import com.ahmdhsm.trinitywizardcontact.core.readJSONFromAssets
 import com.ahmdhsm.trinitywizardcontact.models.ContactModel
 import com.google.gson.Gson
 
 @SuppressLint("StaticFieldLeak")
-class ListContactViewModel(private val context: Context): ViewModel() {
+class ListContactViewModel(private val context: Context) : ViewModel() {
     var listContact: MutableList<ContactModel> = mutableListOf()
 
     fun getContactFromAsset() {
         listContact.clear()
-        val jsonString = ReadJSONFromAssets(context, "contact.json")
+        val jsonString = readJSONFromAssets(context, "contact.json")
         val list = Gson().fromJson(jsonString, Array<ContactModel>::class.java)
         listContact.addAll(list)
 
     }
+
     fun addContact(contact: ContactModel) {
         listContact.add(contact)
     }
 
     fun getContactById(contactId: String): ContactModel? {
-        for ( contact in listContact) {
+        for (contact in listContact) {
             if (contact.id == contactId) {
                 return contact
             }
@@ -50,7 +50,7 @@ class ListContactViewModel(private val context: Context): ViewModel() {
         }
 
         if (contactIndex != null && currentContact != null) {
-                listContact.add(contactIndex, currentContact)
+            listContact.add(contactIndex, currentContact)
 
         }
     }
